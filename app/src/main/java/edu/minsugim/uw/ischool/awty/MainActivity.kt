@@ -12,8 +12,7 @@ import android.util.Log
 import java.util.*
 import android.content.pm.PackageManager
 import android.content.ComponentName
-
-
+import com.valdesekamdem.library.mdtoast.MDToast
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,20 +34,31 @@ class MainActivity : AppCompatActivity() {
         calendar.timeInMillis = System.currentTimeMillis()
 
         button.setOnClickListener {
-            Log.i("Main", button.text.toString())
             when (button.text.toString()) {
                 "Start" -> {
-                    Log.i("Main", number.text.toString())
                     if (message.text.isNotEmpty() && number.text.isNotEmpty() && nagInterval.text.isNotEmpty()) {
                         button.text = getString(R.string.stop)
                         val interval = nagInterval.text.toString().toLong()
                         val intent = Intent(this, AlarmReceiver::class.java)
                         intent.putExtra("number", number.text.toString())
+                        intent.putExtra("message", message.text.toString())
                         val pendingIntent = PendingIntent.getBroadcast(this, 0, intent,  PendingIntent.FLAG_UPDATE_CURRENT)
                         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, 1000 * interval, pendingIntent)
                         pm.setComponentEnabledSetting(receiver,
                                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                                 PackageManager.DONT_KILL_APP)
+                    } else {
+                        var error = ""
+                        if (message.text.isEmpty()) {
+                            error += "Please type a message to send\n"
+                        }
+                        if (number.text.isEmpty()) {
+                            error += "Please enter a number to message\n"
+                        }
+                        if (nagInterval.text.isEmpty()) {
+                            error += "Please enter a nagging interval"
+                        }
+                        MDToast.makeText(this, error, MDToast.LENGTH_LONG, MDToast.TYPE_ERROR).show()
                     }
                 }
                 "Stop" -> {

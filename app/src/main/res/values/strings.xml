@@ -6,4 +6,5 @@
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="nag">: Are we there yet?</string>
+    <string name="textNumber">Texting </string>
 </resources>
