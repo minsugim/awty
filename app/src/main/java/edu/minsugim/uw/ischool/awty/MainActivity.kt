@@ -43,7 +43,8 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra("number", number.text.toString())
                         intent.putExtra("message", message.text.toString())
                         val pendingIntent = PendingIntent.getBroadcast(this, 0, intent,  PendingIntent.FLAG_UPDATE_CURRENT)
-                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().timeInMillis, 1000 * 60 * interval, pendingIntent)
+                        Log.i("Main", System.currentTimeMillis().toString())
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * interval, pendingIntent)
                         pm.setComponentEnabledSetting(receiver,
                                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                                 PackageManager.DONT_KILL_APP)

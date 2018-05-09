@@ -1,11 +1,9 @@
 package edu.minsugim.uw.ischool.awty
 
 import android.content.Intent
-import android.widget.Toast
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import com.valdesekamdem.library.mdtoast.MDToast
 
 
