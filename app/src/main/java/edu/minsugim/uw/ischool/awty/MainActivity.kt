@@ -12,6 +12,7 @@ import android.util.Log
 import java.util.*
 import android.content.pm.PackageManager
 import android.content.ComponentName
+import android.os.SystemClock
 import com.valdesekamdem.library.mdtoast.MDToast
 
 
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra("message", message.text.toString())
                         val pendingIntent = PendingIntent.getBroadcast(this, 0, intent,  PendingIntent.FLAG_UPDATE_CURRENT)
                         Log.i("Main", System.currentTimeMillis().toString())
-                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * interval, pendingIntent)
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime(), 1000 * 60 * interval, pendingIntent)
                         pm.setComponentEnabledSetting(receiver,
                                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                                 PackageManager.DONT_KILL_APP)
