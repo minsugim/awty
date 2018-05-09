@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">awty</string>
+    <string name="message">Type your message here</string>
+    <string name="number">Number to nag</string>
+    <string name="nag_time">Intervals between nag</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="nag">: Are we there yet?</string>
 </resources>
