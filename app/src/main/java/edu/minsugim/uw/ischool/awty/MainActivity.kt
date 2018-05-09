@@ -13,6 +13,8 @@ import java.util.*
 import android.content.pm.PackageManager
 import android.content.ComponentName
 import android.os.SystemClock
+import android.telephony.PhoneNumberFormattingTextWatcher
+import android.telephony.PhoneNumberUtils
 import com.valdesekamdem.library.mdtoast.MDToast
 
 
@@ -33,6 +35,8 @@ class MainActivity : AppCompatActivity() {
 
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
+
+        number.addTextChangedListener(PhoneNumberFormattingTextWatcher())
 
         button.setOnClickListener {
             when (button.text.toString()) {
