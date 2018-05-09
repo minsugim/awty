@@ -43,19 +43,21 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra("number", number.text.toString())
                         intent.putExtra("message", message.text.toString())
                         val pendingIntent = PendingIntent.getBroadcast(this, 0, intent,  PendingIntent.FLAG_UPDATE_CURRENT)
-                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, 1000 * interval, pendingIntent)
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().timeInMillis, 1000 * 60 * interval, pendingIntent)
                         pm.setComponentEnabledSetting(receiver,
                                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                                 PackageManager.DONT_KILL_APP)
                     } else {
                         var error = ""
                         if (message.text.isEmpty()) {
-                            error += "Please type a message to send\n"
+                            error += "Please type a message to send"
                         }
                         if (number.text.isEmpty()) {
-                            error += "Please enter a number to message\n"
+                            if (error.isNotEmpty()) error += "\n"
+                            error += "Please enter a number to nag"
                         }
                         if (nagInterval.text.isEmpty()) {
+                            if (error.isNotEmpty()) error += "\n"
                             error += "Please enter a nagging interval"
                         }
                         MDToast.makeText(this, error, MDToast.LENGTH_LONG, MDToast.TYPE_ERROR).show()
@@ -65,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                     button.text = getString(R.string.start)
                     pm.setComponentEnabledSetting(receiver,
                             PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP);
+                            PackageManager.DONT_KILL_APP)
                 }
             }
         }
