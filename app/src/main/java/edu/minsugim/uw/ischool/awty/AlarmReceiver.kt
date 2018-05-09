@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.os.Bundle
+import android.telephony.SmsManager
 import com.valdesekamdem.library.mdtoast.MDToast
 
 
@@ -14,5 +15,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val message = extras.getString("message")
         val text = context.getString(R.string.textNumber)
         MDToast.makeText(context, text + " " + number + "\n" + message, MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show()
+        val smsManager = SmsManager.getDefault()
+        smsManager.sendTextMessage(number, null, message, null, null)
     }
 }
