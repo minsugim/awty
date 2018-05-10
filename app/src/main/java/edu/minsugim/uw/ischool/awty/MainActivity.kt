@@ -8,11 +8,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.content.Context
 import android.content.Intent
-import android.util.Log
-import java.util.*
 import android.content.pm.PackageManager
 import android.content.ComponentName
 import android.os.SystemClock
+import android.telephony.PhoneNumberFormattingTextWatcher
 import com.valdesekamdem.library.mdtoast.MDToast
 
 
@@ -30,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val receiver = ComponentName(applicationContext, AlarmReceiver::class.java)
         val pm = applicationContext.packageManager
+        number.addTextChangedListener(PhoneNumberFormattingTextWatcher())
+
 
         button.setOnClickListener {
             when (button.text.toString()) {
@@ -41,7 +42,6 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra("number", number.text.toString())
                         intent.putExtra("message", message.text.toString())
                         val pendingIntent = PendingIntent.getBroadcast(this, 0, intent,  PendingIntent.FLAG_UPDATE_CURRENT)
-                        Log.i("Main", System.currentTimeMillis().toString())
                         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime(), 1000 * 60 * interval, pendingIntent)
                         pm.setComponentEnabledSetting(receiver,
                                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
