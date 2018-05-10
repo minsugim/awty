@@ -31,9 +31,6 @@ class MainActivity : AppCompatActivity() {
         val receiver = ComponentName(applicationContext, AlarmReceiver::class.java)
         val pm = applicationContext.packageManager
 
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-
         button.setOnClickListener {
             when (button.text.toString()) {
                 "Start" -> {
@@ -51,10 +48,10 @@ class MainActivity : AppCompatActivity() {
                                 PackageManager.DONT_KILL_APP)
                     } else {
                         var error = ""
-                        if (message.text.isEmpty()) {
+                        if (number.text.isEmpty()) {
                             error += "Please type a message to send"
                         }
-                        if (number.text.isEmpty()) {
+                        if (message.text.isEmpty()) {
                             if (error.isNotEmpty()) error += "\n"
                             error += "Please enter a number to nag"
                         }
