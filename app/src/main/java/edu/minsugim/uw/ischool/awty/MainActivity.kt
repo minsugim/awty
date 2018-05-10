@@ -8,13 +8,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import java.util.*
 import android.content.pm.PackageManager
 import android.content.ComponentName
 import android.os.SystemClock
 import android.telephony.PhoneNumberFormattingTextWatcher
-import android.telephony.PhoneNumberUtils
+import android.widget.ProgressBar
 import com.valdesekamdem.library.mdtoast.MDToast
 
 
@@ -48,19 +47,18 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra("number", number.text.toString())
                         intent.putExtra("message", message.text.toString())
                         val pendingIntent = PendingIntent.getBroadcast(this, 0, intent,  PendingIntent.FLAG_UPDATE_CURRENT)
-                        Log.i("Main", System.currentTimeMillis().toString())
                         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime(), 1000 * 60 * interval, pendingIntent)
                         pm.setComponentEnabledSetting(receiver,
                                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                                 PackageManager.DONT_KILL_APP)
                     } else {
                         var error = ""
-                        if (message.text.isEmpty()) {
-                            error += "Please type a message to send"
-                        }
                         if (number.text.isEmpty()) {
-                            if (error.isNotEmpty()) error += "\n"
                             error += "Please enter a number to nag"
+                        }
+                        if (message.text.isEmpty()) {
+                            if (error.isNotEmpty()) error += "\n"
+                            error += "Please type a message to send"
                         }
                         if (nagInterval.text.isEmpty()) {
                             if (error.isNotEmpty()) error += "\n"
