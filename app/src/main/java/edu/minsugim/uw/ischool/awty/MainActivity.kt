@@ -31,10 +31,6 @@ class MainActivity : AppCompatActivity() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val receiver = ComponentName(applicationContext, AlarmReceiver::class.java)
         val pm = applicationContext.packageManager
-
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-
         number.addTextChangedListener(PhoneNumberFormattingTextWatcher())
 
         button.setOnClickListener {
